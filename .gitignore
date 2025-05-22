@@ -1,0 +1,199 @@
+### Gradle ###
+.gradle
+build/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+!**/src/main/**/build/
+!**/src/test/**/build/
+gradle-app.setting
+.gradletasknamecache
+.gradle/
+gradle/
+gradlew
+gradlew.bat
+gradle.properties
+!gradle/wrapper/
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+mvnw
+mvnw.cmd
+.flattened-pom.xml
+!.mvn/wrapper/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+### Windows ###
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+### Eclipse ###
+.metadata
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+.externalToolBuilders/
+*.launch
+
+### Java ###
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+### Spring Boot ###
+*.log
+logs/
+spring-boot-*.pid
+application-*.yml
+application-*.properties
+!application.yml
+!application.properties
+!application-test.yml
+!application-test.properties
+
+### DB ###
+*.db
+*.sqlite
+*.sqlite3
+*.h2.db
+*.mv.db
+*.trace.db
+
+### 로그 ###
+/logs/
+*.log.*
+log/
+logging/
+
+### 환경/비밀 정보 ###
+.env
+.env.*
+credentials.yml
+secrets.yml
+secrets.properties
+application-secret.properties
+application-secret.yml
+
+### Node.js/Frontend ###
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+.sass-cache/
+coverage/
+.nyc_output/
+.cypress/
+
+### PHP/Composer ###
+.phpunit.result.cache
+.phpunit.cache/
+.php_cs.cache
+.php-cs-fixer.cache
+phpunit.xml
+composer.phar
+/vendor/
+
+### 보안 파일 ###
+*.pem
+*.key
+*.p12
+*.pfx
+*.cer
+*.crt
+
+### REST API 도구 관련 ###
+# Swagger / OpenAPI
+swagger-ui/
+swagger.json
+swagger.yaml
+openapi.json
+openapi.yaml
+
+# Postman
+*.postman_collection.json
+*.postman_environment.json
+
+# REST API 테스트 로그
+*.restassured.log
+http-requests.log
+*.http
