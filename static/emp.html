@@ -3,29 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <title>사원 목록 조회</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+
+        // 입력 폼 초기화
+        function fn_clearForm() {
+            document.getElementById('e_id').value = '';
+            document.getElementById('e_name').value = '';
+            document.getElementById('gen').value = '';
+            document.getElementById('addr').value = '';
+        }
+
         function fn_list() {
-            fetch('/emp_list.ajax')
-                .then(res => res.json())
-                .then(list => {
+            axios.get('/emp_list.ajax')
+                .then(response => {
+                    // Axios는 응답을 response.data 에 담아 줍니다
+                    const list = response.data;
+
                     const tbody = document.getElementById('my_tbody');
                     tbody.innerHTML = list.length
-                        ? list.map(v => `
+                        ? list.map(vo => `
               <tr>
-                <td>${v.e_id}</td>
-                <td>${v.e_name}</td>
-                <td>${v.gen}</td>
-                <td>${v.addr}</td>
-              </tr>`).join('')
+                <td><a href='javascript:fn_one("${vo.e_id}")'>${vo.e_id}</a></td>
+                <td>${vo.e_name}</td>
+                <td>${vo.gen}</td>
+                <td>${vo.addr}</td>
+              </tr>
+            `).join('')
                         : '<tr><td colspan="4">데이터가 없어유</td></tr>';
                 })
                 .catch(err => {
                     console.error('error', err);
                 });
         }
+
+        function fn_one(id) {
+            axios.get('/emp_detail.ajax', { params: { e_id: id } })
+                .then(res => {
+                    const vo = res.data;
+                    document.getElementById('e_id').value   = vo.e_id;
+                    document.getElementById('e_name').value = vo.e_name;
+                    document.getElementById('gen').value    = vo.gen;
+                    document.getElementById('addr').value   = vo.addr;
+                })
+                .catch(err => console.error('detail error', err));
+        }
+
+        // 추가
+        function fn_add() {
+            const data = {
+                e_id:    document.getElementById('e_id').value,
+                e_name:  document.getElementById('e_name').value,
+                gen:     document.getElementById('gen').value,
+                addr:    document.getElementById('addr').value
+            };
+            axios.post('/emp_add.ajax', data)
+                .then(() => {
+                    alert(`추가 되었습니다. 사번: ${data.e_id}`);
+                    fn_list();
+                    fn_clearForm();
+                })
+                .catch(err => console.error('add error', err));
+        }
+
+        // 수정 (POST, cnt)
+        function fn_mod() {
+            const data = {
+                e_id:    document.getElementById('e_id').value,
+                e_name:  document.getElementById('e_name').value,
+                gen:     document.getElementById('gen').value,
+                addr:    document.getElementById('addr').value
+            };
+            axios.post('/emp_mod.ajax', data)
+                .then(res => {
+                    const cnt = res.data.cnt;
+                    if (cnt === 1) {
+                        alert(`정상적으로 수정되었습니다. 사번: ${data.e_id}`);
+                    } else {
+                        alert(`수정에 실패했습니다. 사번: ${data.e_id}`);
+                    }
+                    fn_list();
+                    fn_clearForm();
+                })
+                .catch(err => console.error('update error', err));
+        }
+
+        //삭제
+        function fn_del() {
+            const e_id = document.getElementById('e_id').value
+            const data = {e_id};
+
+            if(confirm("정말 삭제 하시겠습니까?")) {
+                axios.post('/emp_del.ajax', data)
+                    .then(res => {
+                        const cnt = res.data.cnt;
+                        if (cnt === 1) {
+                            alert(`정상적으로 수정되었습니다. 사번: ${data.e_id}`);
+                        } else {
+                            alert(`수정에 실패했습니다. 사번: ${data.e_id}`);
+                        }
+                        fn_list();
+                        fn_clearForm();
+                    })
+                    .catch(err => console.error('delete error', err));
+            }
+        }
+
+        // window.onload = () =>{
+        //     fn_list();
+        // }
     </script>
+
 </head>
-<body>
+<body onload="fn_list()">
 <h3>EMP 화면</h3>
 <button onclick="fn_list()">데이터 가져오기</button>
 <table border="1px">
@@ -43,5 +133,36 @@
     </tr>
     </tbody>
 </table>
+
+
+<h3>사원 입력/수정/삭제</h3>
+<table border="1px">
+    <tbody>
+    <tr>
+        <td>사번</td>
+        <td><input type="text" id="e_id" placeholder="사번 입력"></td>
+    </tr>
+    <tr>
+        <td>이름</td>
+        <td><input type="text" id="e_name" placeholder="이름 입력"></td>
+    </tr>
+    <tr>
+        <td>성별</td>
+            <td><input type="text"  id="gen" placeholder="성별 입력"></td>
+    </tr>
+    <tr>
+        <td>주소</td>
+        <td><input type="text" id="addr" placeholder="주소 입력"></td>
+    </tr>
+    <tr>
+    <td colspan="2">
+        <input type="button" value="추가" onclick="fn_add()" />
+        <input type="button" value="수정" onclick="fn_mod()" />
+        <input type="button" value="삭제" onclick="fn_del()" />
+    </td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>
